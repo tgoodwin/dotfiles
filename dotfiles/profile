@@ -1,0 +1,11 @@
+# Mac-specific configuration
+export LC_tim_goodwin=yes
+
+source $HOME/dotfiles.tim_goodwin/dotfiles/bashrc
+#source ~/.bashrc
+#export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="/Users/moat876/anaconda2/bin:$PATH"
+export ECR_URL=317260457025.dkr.ecr.us-east-1.amazonaws.com
+
+source $HOME/.secrets
+
