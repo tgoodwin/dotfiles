@@ -2,7 +2,7 @@ set showmode
 set tabstop=2
 set shiftwidth=2
 set mouse=a
-
+ 
 " Line numbers
 set number
 
@@ -69,7 +69,6 @@ augroup END
 " Tim's vim settings
 "
 "
-
 " When coding, auto-indent by 4 spaces
 " Note that this does NOT change tab into 4 spaces.
 set shiftwidth=4
@@ -101,5 +100,4 @@ set undodir=.undo/,~/.undo/,/tmp//
 "   to make your search always case-insensitive or case-sensitive,
 "   respectively.
 set ignorecase
-
 
