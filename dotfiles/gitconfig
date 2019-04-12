@@ -1,6 +1,6 @@
 [user]
     name = Tim Goodwin
-    email = timg.goodwin@gmail.com
+    email = tgoodwin@hioscar.com
 [push]
     default = simple
 [filter "lfs"]
@@ -26,6 +26,7 @@
     remote-diff = !CURRENT=$(git current) && git diff $CURRENT $1/$CURRENT
     du = diff @{upstream}
     dp = !CURRENT=$(git current) && git diff prod $CURRENT -- $1
+    bl = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(color:blue)[%(authorname)]%(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'
 
 [color]
     ui = auto

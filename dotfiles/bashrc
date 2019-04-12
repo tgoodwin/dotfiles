@@ -107,7 +107,7 @@ if [ -f ~/.bash_aliases ]; then
 fi
 
 # vi mode on the command line!!
-set -o vi
+#set -o vi
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -115,13 +115,6 @@ set -o vi
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
-
-# begin virtualenv stuff
-export WORKON_HOME=~/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
-
-# end virtualenv stuff
 
 export EDITOR=vim
 
