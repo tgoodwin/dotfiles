@@ -1,14 +1,14 @@
-DOT_JV='dotfiles.tim_goodwin'
-export DOTFILES=$HOME/$DOT_JV/dotfiles
-export PATH=$PATH:$HOME/$DOT_JV/bin
-export REGISTRY='/mnt/moatpro/moatpro/moatpro/registry'
+# ~/.bashrc: executed by bash(1) for non-login shells.
+# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+# for examples
+umask 0077
 
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -20,6 +20,10 @@ HISTFILESIZE=2000
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
+
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -41,12 +45,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-        # We have color support; assume it's compliant with Ecma-48
-        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-        # a case would tend to support setf rather than setaf.)
-        color_prompt=yes
+	# We have color support; assume it's compliant with Ecma-48
+	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	# a case would tend to support setf rather than setaf.)
+	color_prompt=yes
     else
-        color_prompt=
+	color_prompt=
     fi
 fi
 
@@ -69,163 +73,25 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-fi
+    alias ls='ls -G'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
 
-alias grep='grep --color=auto'
-alias cgrep='grep --color=always'
-alias grep_src_nojs="grep --include=\*.{py,sh,sql,god,rb,mak,ini,conf,crontab,yaml,yml} --include=requirements.txt"
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
 
 # some more ls aliases
-alias ls='ls --color=auto'
-# if Mac OSX, overwrite with compatible command
-if uname | grep -i darwin>/dev/null ; then
-    alias ls='ls -G'
-fi
-
-alias dir='dir --color=auto'
-alias vdir='vdir --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
-alias lf='ll | grep "^-"' # files
-alias ld='ll | grep "^d"' # directories
+alias ls='ls -G'
+
 # some cd aliases
 alias ..='cd ..'
 alias ...='cd ...'
 alias home='cd ~'
-
-alias wipe='rm -f *~ && rm -f *.pyc'
-
-# some Moat aliases
-alias mp='cd /mnt/moatpro && ls'
-
-# some miscellaneous aliases
-# alias cdsp='cd /mnt/moatpro/scrapepipeline/scrapepipeline'
-# alias cdm='cd /mnt/moatpro'
-# alias cdmp='cd /mnt/moatpro/moatpro/moatpro'
-# alias cdmpo='cd /mnt/moatpro/moatpro/moatpro/ops'
-# alias cde='cd /mnt/moatpro/scrapepipeline/scrapepipeline/etl'
-# alias cdent='cd /mnt/moatpro/moatpro/moatpro/entities'
-# alias cdc='echo "(assuming you meant \`cdw\`)" ; cdw'
-# alias cdw='cd /mnt/moatpro/moatpro_web/moatpro/web'
-# alias cdo='cd /mnt/moatpro/ops'
-# alias cdr='cd /mnt/moatpro/moatpro/moatpro/registry'
-# alias cdmt='cd /mnt/moat/search/tasks/mturk'
-# alias cdtp='cd /mnt/tagpipeline/tag_pipeline'
-# alias cdmb='cd /mnt/moatbot'
-# alias cdmq='cd /mnt/mqueue'
-# alias cdsw='cd /mnt/swfshots'
-# alias cdlog='cd /mnt/log/apache2'
-# alias cdpd='cd /usr/local/lib/python2.7/dist-packages/'
-# alias apacherestart='sudo /etc/init.d/apache2 restart'
-# alias bounce-codename='touch /mnt/codename/*.wsgi'
-# alias memcachedrestart='sudo /etc/init.d/memcached restart'
-# alias gencss='/mnt/codename/bin/generate_css.sh'
-# alias gencssa='/mnt/codename/bin/generate_css.sh; apacherestart'
-# alias toggle='. ~/toggle/toggle.sh'
-# alias instance_id='curl "http://169.254.169.254/latest/meta-data/instance-id"'
-# alias fact="elinks -dump randomfunfacts.com | sed -n '/^| /p' | tr -d \|"
-# alias tmux="TERM=screen-256color-bce tmux -f $DOTFILES/tmux.conf"
-# alias ufilext='xargs -n1 basename | cut -d. -f2 | sort | uniq' # unique file extensions among a list of file paths, e.g. $ grep -rl 'DBSession' $REPOS | ufilext
-# alias elb_hosts='iam0 && /mnt/moatpro/ops/_common/elb_hosts.py'
-
-# JSON pretty-print utility
-alias jsonp='python -mjson.tool'
-
-# cat file with syntax-highlighting. the -g attempts to guess the lexer from the file contents
-alias pcat='pygmentize -g'
-
-alias epoch='date +%s'
-
-alias svc-which='ps aux | grep -i -e apache -e python -e couch -e memcache -e mysql -e postgres -e pgpool -e nrpe -e nagios -e nginx -e redis -e que -e ruby -e god -e redsocks -e vim -e emacs -e tmux -e rabbit'
-
-# git aliases
-alias git="HOME=$DOTFILES git"
-alias gits='git status'
-alias gitsa='pushd .; cdmp; gits; popd;'
-alias gitc='git commit -a'
-alias gitco='git checkout'
-alias gitd='git diff --find-renames'
-alias gitds='git diff --staged --find-renames'
-alias gitdh='git diff HEAD'
-alias gs='git s'
-alias gbr='git b'
-alias gls='git ls'
-
-alias uc="/mnt/moatpro/ops/_common/update_code.py"
-alias luc="/mnt/moatpro/ops/_common/local_update_code.py"
-
-# some common RDBMS commands
-# alias mamp_mysql=/Applications/MAMP/Library/bin/mysql
-# alias mamp_mysql_root='/Applications/MAMP/Library/bin/mysql -u root -proot'
-# alias ms-search='mysql -h db.moat.co -u codename -pbigmoat126'
-# alias ms-accounts='mysql -h codename-accounts.moat.co -u codename -pbigmoat126 codename_accounts'
-# alias pg-cn='PGPASSWORD=bigmoat126 psql -d tsdb -U codename -h '
-# alias pg-cnl='PGPASSWORD=bigmoat126 psql -d tsdb -U codename -h $(ip-int)'
-# alias pg-u='psql -d codename_cache -U ubuntu'
-# WEB_TRAFFIC='psql --dbname=postgres://codeload:bigpass126@10.165.87.173:5432/pro'
-
-alias tsdb-dev=PGPASSWORD='bigmoat126 psql -h ccx-dev.moat.co -U codename tsdb'
-
-alias box='cat /mnt/.box_name'
-alias role='cat /mnt/.installed_role'
-
-# ssh aliases
-alias scp='scp -o PermitLocalCommand=no'
-alias nssh='ssh -o PermitLocalCommand=no'
-alias kill-ssh-agent='ps aux | grep ssh-agent | grep -v grep | awk "{print \$2}" | xargs sudo kill'
-alias mqueue-tunnel='nssh -L 4321:127.0.0.1:80 10.159.169.84'
-
-# parallel-ssh/scp aliases
-PSSH_ARGS='-v -p8 --timeout=10 -O PermitLocalCommand=no -O StrictHostKeyChecking=no'
-alias pssh="parallel-ssh -i $PSSH_ARGS"
-alias pscp="parallel-scp $PSSH_ARGS"
-alias pssh-h="parallel-ssh -i $PSSH_ARGS -h ~/hosts"
-alias pscp-h="parallel-scp $PSSH_ARGS -h ~/hosts"
-
-editconfig() {
-    # for editing dotfiles
-    local config_file=$1
-    vim $DOTFILES/$config_file
-}
-
-ssh_agent_ps=$(ps x | grep ssh-agent | grep -v grep | awk '{ print $1 }')
-if [ "$ssh_agent_ps" == "" ]; then
-   eval `ssh-agent -s`
-else
-   export SSH_AGENT_PID=$ssh_agent_ps
-fi
-
-# ssh-add ~/.ssh/id_rsa_github_personal
-if [[ $(uname) = 'Darwin' ]] ; then
-    # Only add this ssh key if we're on the Mac.
-    ssh-add ~/.ssh/id_rsa
-fi
-ssh-add ~/.ssh/mar-2011.pem
-# ssh-add ~/.ssh/nov-2010.pem
-# ssh-add ~/.ssh/moatbot.pem # this is "moat-deploy" user on git@github.com
-
-# aliases for discovery of ec2 instances
-alias prod-ws='pls_ec2 | grep codename-webserver\\s\*prod | grep prod-\\d'
-alias prod-hot-db-hosts='iam0 && /mnt/moatpro/moatpro.db/moatpro/db/lib/host_util.py get | jq ".host_groups.prod_cache_readers_group"'
-alias pls_ec2='iam0 && ${REGISTRY}/ls_ec2.py'
-alias bls_ec2='iam1 && ${REGISTRY}/ls_ec2.py'
-
-alias sup='sudo supervisorctl'
-
-# aliases for obtaining external and internal ip
-alias ip-ext='curl https://jsonip.com 2>/dev/null | sed '"'"'s/.*"\([0-9.]*\)".*/\1\n/'"'"''
-alias ip-int='ifconfig | grep --color=never -o "inet addr:10[^ ]*" | grep --color=never -o "10.*"'
-
-# aliases for sourcing AWS IAM User keys
-alias iam0="source $HOME/.IAM-jason.ventresca-aws.sh"
-alias iam1="source $HOME/.IAM-jason.ventresca-aws1.sh"
-
-# aliases for common AWS CLI commands
-alias ec2-kill='aws ec2 terminate-instances --instance-ids' # supply instance ids separated by whitespace
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -240,6 +106,9 @@ if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 
+# vi mode on the command line!!
+set -o vi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
@@ -247,188 +116,14 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-if [ -f ${REGISTRY}/glom.sh ]; then
-    . ${REGISTRY}/glom.sh master.bots
-fi
+# begin virtualenv stuff
+export WORKON_HOME=~/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
 
-# set vim as default editor for stuff like git commit messages
-export VISUAL=vim
+# end virtualenv stuff
+
 export EDITOR=vim
-alias vim='REAL_HOME=$HOME HOME=$DOTFILES vim'
-alias sudovim='sudo REAL_HOME=$HOME HOME=$DOTFILES vim'
 
-alias repos-installed='cat /mnt/moatpro/ops/$(cat /mnt/.installed_role)/REPOS | cut -f 2 -d "/" | cut -f 1 -d "."'
-alias repos-installed-paths='repos-installed | xargs -I{} echo /mnt/{}'
-alias repos-branches='for repo in $(repos-installed) ; do cd /mnt/$repo ; echo "$repo : $(git branch | grep '"'"'^*'"'"' | cut -f 2 -d '"'"' '"'"' )" ; done'
-
-alias remove_dd_agent='sudo apt-get remove datadog-agent -y'
-
-INPUTRC=$DOTFILES/inputrc
-
-# export GIT_AUTHOR_NAME=Tim Goodwin
-# export GIT_COMMITTER_NAME=Tim Goodwin
-# export GIT_COMMITTER_EMAIL=timothy.goodwin@moat.com
-# export GIT_AUTHOR_EMAIL=timothy.goodwin@moat.com
-
-# Ready-to-use <Tab> character via ANSI C quoting (see http://askubuntu.com/a/53096)
-export T=$'\t'
-
-# # Cachebuild S3 prefixes, for convenience
-# export s3_ident_jason='s3://search-archives/cachebuild_files_jason'
-# export s3_ident_prod='s3://search-archives/cachebuild_files_tsdb'
-
-#echo ""
-#whatis $(ls -1 /usr/share/man/man?/ | shuf -n1 | cut -d. -f1) || \ # Debian
-#    whatis $(ls -1 /usr/share/man/man?/ | gshuf -n1 | cut -d. -f1) # Mac OS X
-#echo ""
-
-export REPOS='/mnt/moatpro /mnt/moatpanel /mnt/moatbot /mnt/tagpipeline /mnt/swfshots /mnt/moat /mnt/phashist /mnt/mqueue /mnt/mocktool /mnt/videoads /mnt/tagadmin'
-
-# for OSS project
-export IREQ='--include=requirements.txt'
-export PIP_FREEZE=/mnt/oss_tools/pro_repos_pip_deps/pip_freeze
-export S3_LIC='s3://prod_an.live.data/licenses'
-
-shopt -s histverify
-
-function ssh-reagent () {
-    export SSH_AUTH_SOCK=$( find /tmp/ssh-* -user `whoami` -name agent\* -printf '%T@ %p\n' 2>/dev/null | \
-                            sort -k 1 -nr | sed 's/^[^ ]* //' | head -n 1 )
-    if ssh-add -l 2>&1 >/dev/null ; then
-        echo "Found working SSH Agent:"
-        ssh-add -l
-    else 
-        echo "Cannot find ssh agent - maybe you should reconnect and forward it?"
-    fi
-}
-
-function pssh-results () {
-    local results_file="$1" # e.g. ~/pssh.txt
-    if [[ -z $results_file ]] ; then
-        results_file=$HOME/pssh.txt
-    fi
-    echo "success: $(grep -c SUCCESS $results_file)"
-    echo "failure: $(grep -c FAILURE $results_file)"
-}
-
-function rebase() {
-    n_commits="$1"
-    echo "rebasing last $n_commits commits... (replace 'pick' with 'fixup' or 'squash')"
-    sleep 1
-    git rebase -i $(git rev-parse HEAD~${n_commits})
-}
-
-function pro-etc-hosts() {
-    local ip="$1" # e.g. 1.2.5.4
-    local hosts_file='/etc/hosts'
-    # Validate the ipv4 address.
-    # *NOTE* This is not at all a perfect validity check.
-    if echo $ip | grep -E '^[0-9.]+$' 1>/dev/null ; then
-        sudo cp $hosts_file{,.bak}
-        echo "## The following entries were added automatically by" | sudo tee -a $hosts_file 1>/dev/null
-        echo "## the bash function pro-etc-hosts (check your .bashrc)." | sudo tee -a $hosts_file 1>/dev/null
-        for name in pro.moat.com www.moat.com moat.com ; do
-            echo "$ip $name" | sudo tee -a $hosts_file 1>/dev/null
-        done
-        echo "Setup /etc/hosts entries for $ip."
-
-        read -p "Hit ENTER when you're done to revert /etc/hosts back to normal."
-        sudo mv $hosts_file{.bak,}
-        echo "Reverted. Good bye!"
-    else
-        echo "FATAL: Invalid IP '$ip'." 1>&2
-        return 1
-    fi
-}
-
-function dusort() {
-    sudo du -sh $@ 2>/dev/null | sort -hr
-}
-
-function join-lines() {
-    local replacement="$1"
-    sed -e ':a' -e 'N' -e '$!ba' -e "s/\\n/${replacement}/g"
-}
-
-function grep_multi() {
-    # Ex 1: cat data.txt | grep_multi one two three
-    #    => cat data.txt | grep -e one -e two -e three
-    cmd_args=$(echo $@ | python -c 'import sys; print "-e " + " -e ".join(sys.stdin.read().split())')
-    cat | grep $cmd_args
-
-    # This one isn't supported yet
-    ### Ex 2: echo 'one\ntwo three\nfour' >~/file.txt
-    ###       grep_multi_f ~/file.txt
-    ###    => grep -e one -e 'two three' -e four
-}
-
-function h() {
-    # Is the supplied argument an IP address?
-    if echo $@ | grep -E '^[0-9.]+$' >/dev/null ; then
-        pls_ec2 | grep $@ | cut -f 2
-        return
-    fi
-
-    # If it's not an IP address, let's assume it's a DNS name that we can lookup.
-    local res=$(nslookup $@ | grep Address | tail -n1 | cut -f 2 -d ' ')
-    if echo $res | grep '^10\.' >/dev/null ; then
-        echo $res
-    else
-        pls_ec2 | grep $res | cut -f 2
-    fi
-}
-
-function man() {
-    env \
-        LESS_TERMCAP_mb=$(printf "\e[1;31m") \
-        LESS_TERMCAP_md=$(printf "\e[1;31m") \
-        LESS_TERMCAP_me=$(printf "\e[0m") \
-        LESS_TERMCAP_se=$(printf "\e[0m") \
-        LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
-        LESS_TERMCAP_ue=$(printf "\e[0m") \
-        LESS_TERMCAP_us=$(printf "\e[1;32m") \
-            man "$@"
-}
-
-
-function decode-aws-auth-failure-message {
-    if [ $# -ne 1 ] || [ "$1" = -h ] || [ "$1" = --help ]; then
-        cat <<'EOT'
-Usage: decode-authorization-failure-message <message>
-Use this when Amazon gives you an "Encoded authorization failure message" and
-you need to turn it into something readable.
-EOT
-        return 1
-    fi
-
-    aws sts decode-authorization-message --encoded-message "$1" |
-        jq '.["DecodedMessage"]' |
-        sed 's/\\"/"/g' |
-        sed 's/^"//' |
-        sed 's/"$//' |
-        jsonp
-}
-
-function py-workon() {
-    local version=$1
-    export WORKON_HOME=/mnt/virtual_envs
-    export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python${version}
-    source /usr/local/bin/virtualenvwrapper.sh
-    workon py${version}
-}
-
-function ivim() {
-    vim - -c "setl filetype=$1"
-}
-
-function grep_py_imports() {
-    local ident=$1
-    shift
-    local grep_args=$@
-
-    grep \
-        --include=\*.{py,sh,sql,god,rb,mak,ini,conf,crontab} \
-        -e "import.*${ident}" \
-        -e "${ident}.*import" \
-        $grep_args
-}
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
