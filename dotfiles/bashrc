@@ -68,12 +68,14 @@ else
 fi
 unset color_prompt force_color_prompt
 
+# comment out to disable showing git branch
 show_git_branch=true
-if [ "$show_git_branch" ]; then
+if [ -n "$show_git_branch" ]; then
     PS1="${debian_chroot+($debian_chroot)}\u@\h:\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
 else
     PS1=$BASE_PS1
 fi
+unset show_git_branch
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
