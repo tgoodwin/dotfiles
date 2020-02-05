@@ -9,7 +9,7 @@ $if mode=vi
     "jrr": reverse-search-history
     "jae": alias-expand-line
     "\C-l": clear-screen
-    #"\C-w": backward-kill-word
+    "\C-w": backward-kill-word
     #"\C-p": history-search-backward
 
     set keymap vi-command
