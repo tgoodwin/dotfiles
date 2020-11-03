@@ -103,11 +103,6 @@ set undodir=.undo/,~/.undo/,/tmp//
 "   respectively.
 set ignorecase
 
-" Cursor settings for Terminal on macOS
-let &t_SI.="\e[6 q" "SI = INSERT mode
-let &t_SR.="\e[4 q" "SR = REPLACE mode
-let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
-
 "  1 -> blinking block
 "  2 -> solid block
 "  3 -> blinking underscore
@@ -115,10 +110,20 @@ let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
 "  5 -> blinking vertical bar
 "  6 -> solid vertical bar
 
+" Cursor settings for Terminal on macOS
+if $TERM_PROGRAM =~ "Terminal"
+    let &t_SI.="\e[6 q" "SI = INSERT mode
+    let &t_SR.="\e[4 q" "SR = REPLACE mode
+    let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
+endif
+
 " for iTerm2 on OSX
-let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 " make cmdmode toggle via <Esc> more responsive
-set ttimeoutlen=5
+set ttimeoutlen=1
+
