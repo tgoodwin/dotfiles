@@ -141,6 +141,9 @@ set show-mode-in-prompt on
 set vi-ins-mode-string \1\e[6 q\2
 set vi-cmd-mode-string \1\e[2 q\2
 
+# enable readline not waiting for additional input when a key is pressed
+set keyseq-timeout 0
+
 # enable programmable completion features (you dont need to enable
 # this, if its already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).

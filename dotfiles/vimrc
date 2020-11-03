@@ -127,3 +127,20 @@ endif
 " make cmdmode toggle via <Esc> more responsive
 set ttimeoutlen=1
 
+" Plugins "
+
+" Install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+call plug#end()
+
+" always show a statusbar no matter how many window are open
+set laststatus=2
