@@ -137,6 +137,9 @@ endif
 
 call plug#begin('~/.vim/plugged')
 
+Plug 'tpope/vim-surround'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-commentary'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 

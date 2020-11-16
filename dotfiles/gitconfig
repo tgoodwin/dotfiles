@@ -14,7 +14,6 @@
     ll = log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat
     le = log --oneline --decorate
     log = log -- decorate
-    pull = pull && git submodule update
     f = "!git ls-files | grep -i"
     b = branch
     s = status -s -b
