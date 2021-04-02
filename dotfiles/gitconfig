@@ -44,3 +44,6 @@
     old = red #reverse
     new = green #reverse
     whitespace = blue reverse
+[core]
+	fsmonitor = fsmonitor-watchman
+	untrackedCache = true
