@@ -142,8 +142,20 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-commentary'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'fatih/vim-go'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'prettier/vim-prettier'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
+
 
 call plug#end()
 
 " always show a statusbar no matter how many window are open
 set laststatus=2
+
+" Color Scheme
+syntax on
+colorscheme onedark
+
