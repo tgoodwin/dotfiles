@@ -110,22 +110,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-alias ls='ls -G'
-
-# some cd aliases
-alias ..='cd ..'
-alias ...='cd ...'
-alias home='cd ~'
-
-# some grep aliases
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
@@ -144,11 +128,6 @@ if [ -f ~/.git-completion.sh ]; then
     source ~/.git-completion.sh
 fi
 
-# vi mode on the command line!!
-set -o vi
-set show-mode-in-prompt on
-set vi-ins-mode-string \1\e[6 q\2
-set vi-cmd-mode-string \1\e[2 q\2
 
 # enable readline not waiting for additional input when a key is pressed
 set keyseq-timeout 0
@@ -156,6 +135,7 @@ set keyseq-timeout 0
 # enable programmable completion features (you dont need to enable
 # this, if its already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
+
 if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
@@ -168,3 +148,18 @@ export NVM_DIR="$HOME/.nvm"
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# source everything
+for file in ~/.{aliases,functions,extra,exports}; do
+    if [[ -r "$file" ]] && [[ -f "$file" ]]; then
+        # shellcheck source=/dev/null
+        source "$file"
+    fi
+done
+unset file
+
+
+# vi mode on the command line
+set -o vi
+set show-mode-in-prompt on
+set vi-ins-mode-string \1\e[6 q\2
+set vi-cmd-mode-string \1\e[2 q\2
