@@ -154,6 +154,8 @@ call plug#end()
 
 " always show a statusbar no matter how many window are open
 set laststatus=2
+
+" Color Scheme
 syntax on
 colorscheme onedark
 
