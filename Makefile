@@ -5,7 +5,7 @@ git-prompt.sh := ${HOME}/.git-prompt.sh
 git-completion.bash := ${HOME}/.git-completion.bash
 
 .PHONY: all
-all: dotfiles $(plug.vim)
+all: tools dotfiles $(plug.vim)
 
 .PHONY: dotfiles
 dotfiles:
@@ -14,6 +14,10 @@ dotfiles:
 		f=$$(basename $$file); \
 		ln -sfn $(CURDIR)/$$file $(HOME)/$$f; \
 	done;
+
+.PHONY: tools
+tools:
+	./install_tools.sh
 
 $(plug.vim):
 	curl -fLo $@ --create-dirs \
