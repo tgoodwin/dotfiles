@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+# set to a nonempty value to enable
+GIT_PS1_SHOWDIRTYSTATE=
+GIT_PS1_SHOWSTASHSTATE=
+
+# set variable identifying the chroot you work in (used in the prompt below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+# set a color prompt
+case "$TERM" in
+    "rxvt-unicode-256color" | "screen-256color" | "xterm-color" | "xterm-256color") color_prompt=yes;;
+esac
+
+function virtualenv_info() {
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # strip out the path and leave the env name
+        echo "(${VIRTUAL_ENV##*/}) "
+    fi
+}
+
+# lets get git branch on bash prompt too
+function parse_git_branch() {
+    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+
+# disable default virtualenv prompt change
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+declare -x PS1="${debian_chroot+($debian_chroot)}\$(virtualenv_info)\u@\h:\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
+
+unset color_prompt;

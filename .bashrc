@@ -28,40 +28,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
-fi
-
-# set a fancy prompt (non-color, unless we know we "want" color)
-case "$TERM" in
-    xterm-color) color_prompt=yes;;
-esac
-
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-#force_color_prompt=yes
-
-if [ -n "$force_color_prompt" ]; then
-    if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
-    else
-	color_prompt=
-    fi
-fi
-
-# virtualenv stuff
-function virtualenv_info() {
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-        # strip out the path and just leave env name
-        echo "(${VIRTUAL_ENV##*/})"
-    fi
-}
-
 # lets get git branch on bash prompt too
 function parse_git_branch() {
     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
@@ -70,15 +36,6 @@ function parse_git_branch() {
 # disable default virtualenv prompt change
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
-PS1_oscar="${debian_chroot:+($debian_chroot)}\$(virtualenv_info) \u@\h:\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
-
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-    PS1=$PS1_oscar
-fi
-unset color_prompt force_color_prompt
 
 # comment out to disable showing git branch
 show_git_branch=true
@@ -114,10 +71,6 @@ fi
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -149,7 +102,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # source everything
-for file in ~/.{aliases,functions,extra,exports}; do
+for file in ~/.{aliases,functions,extra,exports,git-prompts.sh,git-completion.bash}; do
     if [[ -r "$file" ]] && [[ -f "$file" ]]; then
         # shellcheck source=/dev/null
         source "$file"
@@ -157,6 +110,10 @@ for file in ~/.{aliases,functions,extra,exports}; do
 done
 unset file
 
+shopt -s histappend
+
+# If set, minor errors in the spelling of a directory component in a cd command will be corrected.
+shopt -s cdspell
 
 # vi mode on the command line
 set -o vi
