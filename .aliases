@@ -29,11 +29,6 @@ alias gpl='git pull'
 alias gcm='git commit -m'
 alias gcam='git commit -am'
 
-# some grep aliases
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
 function overwrite_remote_branch {
     echo "deleting remote branch..." >&2
     git push -u origin :$1 >&2
@@ -43,3 +38,9 @@ function overwrite_remote_branch {
 
 alias gfp='$(overwrite_remote_branch $(git current))'
 
+# some grep aliases
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias vim='nvim'
