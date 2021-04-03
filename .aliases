@@ -16,6 +16,7 @@ alias ls="command ls ${colorflag}"
 # git aliases
 alias gls='git ls'
 alias gbr='git b'
+alias gbd='delete-branches'
 alias gs='git s'
 alias gf='git f'
 alias gd='git diff'

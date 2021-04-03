@@ -5,7 +5,7 @@ git-prompt.sh := ${HOME}/.git-prompt.sh
 git-completion.bash := ${HOME}/.git-completion.bash
 
 .PHONY: all
-all: tools dotfiles $(plug.vim)
+all: tools dotfiles $(plug.vim) $(git-prompt.sh) $(git-completion.bash)
 
 .PHONY: dotfiles
 dotfiles:
@@ -23,3 +23,13 @@ $(plug.vim):
 	curl -fLo $@ --create-dirs \
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+	# install plugins without going into interactive mode
+	vim +'PlugInstall --sync' +qa
+
+$(git-prompt.sh):
+	curl -fLo $@ \
+		https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+
+$(git-completion.bash):
+	curl -fLo $@ \
+		https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash
