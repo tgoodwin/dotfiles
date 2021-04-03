@@ -28,33 +28,6 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# lets get git branch on bash prompt too
-function parse_git_branch() {
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-
-# disable default virtualenv prompt change
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-
-
-# comment out to disable showing git branch
-show_git_branch=true
-if [ -n "$show_git_branch" ]; then
-    PS1="${debian_chroot+($debian_chroot)}\u@\h:\w\[\033[32m\]\$(parse_git_branch)\[\033[00m\] $ "
-else
-    PS1=$BASE_PS1
-fi
-unset show_git_branch
-
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
-
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -67,20 +40,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-
-
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
-
-# enable git completion
-if [ -f ~/.git-completion.sh ]; then
-    source ~/.git-completion.sh
-fi
-
 
 # enable readline not waiting for additional input when a key is pressed
 set keyseq-timeout 0
