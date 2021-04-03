@@ -13,7 +13,12 @@ dotfiles:
 				  xargs -I {} find {} -name '.*' -not -name '.gitignore'); do \
 		f=$$(basename $$file); \
 		ln -sfn $(CURDIR)/$$file $(HOME)/$$f; \
-	done;
+	done; \
+	[ -f $(CURDIR)/.extra ] && ln -sfn $(CURDIR)/.extra $(HOME)/.extra; \
+	ln -sfn $(CURDIR)/.vim $(HOME)/.vim; \
+	mkdir -p $(HOME)/.config; \
+	ln -sfn $(CURDIR)/.config/nvim $(HOME)/.config/nvim;
+
 
 .PHONY: tools
 tools:
@@ -24,7 +29,7 @@ $(plug.vim):
 		https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 	# install plugins without going into interactive mode
-	vim +'PlugInstall --sync' +qa
+	# vim +'PlugInstall --sync' +qa
 
 $(git-prompt.sh):
 	curl -fLo $@ \
