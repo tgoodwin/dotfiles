@@ -64,7 +64,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # source everything
-for file in ~/.{aliases,functions,extra,exports,git-prompts.sh,git-completion.bash}; do
+for file in ~/.{aliases,functions,prompt,extra,exports,git-prompts.sh,git-completion.bash}; do
     if [[ -r "$file" ]] && [[ -f "$file" ]]; then
         # shellcheck source=/dev/null
         source "$file"
