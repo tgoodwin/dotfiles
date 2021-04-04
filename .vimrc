@@ -1,6 +1,7 @@
 set showmode
-set tabstop=2
-set shiftwidth=2
+set tabstop=4
+set shiftwidth=4
+set smarttab
 set mouse=a
  
 " Line numbers
@@ -50,6 +51,7 @@ map <C-h> gT
 " Easier 2 reach than esc key :)
 inoremap kj <esc>
 inoremap jj <esc>
+inoremap df <esc>
 
 
 augroup _
@@ -100,4 +102,60 @@ set undodir=.undo/,~/.undo/,/tmp//
 "   to make your search always case-insensitive or case-sensitive,
 "   respectively.
 set ignorecase
+
+"  1 -> blinking block
+"  2 -> solid block
+"  3 -> blinking underscore
+"  4 -> solid underscore
+"  5 -> blinking vertical bar
+"  6 -> solid vertical bar
+
+" Cursor settings for Terminal on macOS
+if $TERM_PROGRAM =~ "Terminal"
+    let &t_SI.="\e[6 q" "SI = INSERT mode
+    let &t_SR.="\e[4 q" "SR = REPLACE mode
+    let &t_EI.="\e[2 q" "EI = NORMAL mode (ELSE)
+endif
+
+" for iTerm2 on OSX
+if $TERM_PROGRAM =~ "iTerm"
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_SR = "\<Esc>]50;CursorShape=2\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+" make cmdmode toggle via <Esc> more responsive
+set ttimeoutlen=1
+
+" Plugins "
+
+" Install vim-plug if not found
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+endif
+
+call plug#begin('~/.vim/plugged')
+
+Plug 'tpope/vim-surround'
+Plug 'easymotion/vim-easymotion'
+Plug 'tpope/vim-commentary'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'fatih/vim-go'
+Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
+Plug 'prettier/vim-prettier'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
+
+
+call plug#end()
+
+" always show a statusbar no matter how many window are open
+set laststatus=2
+
+" Color Scheme
+syntax on
+colorscheme onedark
 

@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+    colorflag="--color"
+else # macOS `ls`
+    colorflag="-G"
+fi
+
+# ls aliases
+alias ll='ls -alF'
+alias la="ls -A ${colorflag}"
+alias l="ls -CF ${colorflag}"
+alias ls="command ls ${colorflag}"
+
+# git aliases
+alias gls='git ls'
+alias gbr='git b'
+alias gbd='delete-branches'
+alias gs='git s'
+alias gf='git f'
+alias gd='git diff'
+alias gds='git diff --staged'
+alias gco='git-checkout'
+alias gst='git stash'
+alias gsp='git stash pop'
+alias gps='git push'
+alias gpl='git pull'
+alias gcm='git commit -m'
+alias gcam='git commit -am'
+
+function overwrite_remote_branch {
+    echo "deleting remote branch..." >&2
+    git push -u origin :$1 >&2
+    echo "pushing local branch..." >&2
+    git push -u origin $1 >&2
+}
+
+alias gfp='$(overwrite_remote_branch $(git current))'
+
+# some grep aliases
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+alias vim='nvim'

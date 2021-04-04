@@ -3,10 +3,14 @@ set editing-mode vi
 $if mode=vi
     set keymap vi-insert
     "jj": vi-movement-mode
+    set show-mode-in-prompt on
+    set vi-ins-mode-string \1\e[6 q\2
+    set vi-cmd-mode-string \1\e[2 q\2
+    set keyseq-timeout 10
     "jrr": reverse-search-history
     "jae": alias-expand-line
     "\C-l": clear-screen
-    #"\C-w": backward-kill-word
+    "\C-w": backward-kill-word
     #"\C-p": history-search-backward
 
     set keymap vi-command

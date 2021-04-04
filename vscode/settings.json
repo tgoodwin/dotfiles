@@ -1,0 +1,77 @@
+{
+    "window.title": "${activeEditorFull}${separator}${rootName}",
+    "editor.formatOnPaste": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.snippetSuggestions": "top",
+    "editor.minimap.enabled": false,
+    "editor.fontSize": 15,
+    "zenMode.hideTabs": false,
+    "files.associations": {
+        "*.aurora": "python",
+        "BUILD": "python"
+    },
+    "editor.fontFamily": "Monaco, Menlo, 'Courier New', monospace",
+    "workbench.statusBar.feedback.visible": false,
+    "files.trimTrailingWhitespace": true,
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#171818",
+        "statusBar.noFolderBackground": "#005f5f",
+        "statusBar.debuggingBackground": "#171818"
+    },
+    "terminal.integrated.rendererType": "dom",
+    "window.zoomLevel": 0,
+    "python.linting.ignorePatterns": [
+        "**.aurora**",
+        "*.aurora"
+    ],
+    "[python]": {
+
+    },
+    "[go]": {
+        "editor.formatOnSave": true
+    },
+    "go.testFlags": ["-race"],
+    "editor.fontWeight": "400",
+    "terminal.integrated.windowsEnableConpty": false,
+    "terminal.external.osxExec": "iTerm.app",
+    "terminal.integrated.fontSize": 15,
+    "terminal.integrated.shell.osx": "/bin/bash",
+    "auto-comment-blocks.singleLineBlockOnEnter": true,
+    "go.formatTool": "gofmt",
+    "python.testing.pytestEnabled": true,
+    "python.testing.pytestPath": "/Users/tgoodwin/.virtualenvs/oscar/bin/python",
+    "python.venvPath": "~/.virtualenvs",
+    "workbench.sideBar.location": "left",
+    "extensions.ignoreRecommendations": false,
+    "vim.insertModeKeyBindingsNonRecursive": [
+        {
+            "before": ["<C-U>"],
+            "after": ["<C-G>", "u", "<C-U>"],
+        },
+        {
+            "before": ["k", "j"],
+            "after": ["<esc>"],
+        },
+        {
+            "before": ["j", "j"],
+            "after": ["<esc>"],
+        },
+    ],
+    "vim.useSystemClipboard": true,
+    "vim.camelCaseMotion.enable": true,
+    "vim.replaceWithRegister": true,
+    "vim.timeout": 500,
+    "vim.vimrc.enable": true,
+    "vim.vimrc.path": "/Users/tgoodwin/.vimrc",
+    "vim.statusBarColors.commandlineinprogress": ".",
+    "python.analysis.memory.keepLibraryAst": true,
+    "git.suggestSmartCommit": false,
+    "python.diagnostics.sourceMapsEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "python.venvFolders": [
+        ".virtualenvs"
+    ],
+    "[dockerfile]": {
+
+    }
+}
