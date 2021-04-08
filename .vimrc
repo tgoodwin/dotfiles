@@ -157,5 +157,8 @@ set laststatus=2
 
 " Color Scheme
 syntax on
+let g:onedark_termcolors=256
 colorscheme onedark
-
+let g:lightline = {
+  \ 'colorscheme': 'onedark',
+  \ }
