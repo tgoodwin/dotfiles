@@ -93,7 +93,7 @@ autocmd FileType help setlocal nospell
 " Prepend ~/.backup to backupdir so that Vim will look for that directory
 " before littering the current dir with backups.
 " You need to do "mkdir ~/.backup" for this to work.
-set backupdir^=.backup/,~/.backup/,/tmp//
+set backupdir^=~/.backup/,/tmp//
 set directory=.swp/,~/.swp',/tmp//
 set undodir=.undo/,~/.undo/,/tmp//
 
