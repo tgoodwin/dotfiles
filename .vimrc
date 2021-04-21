@@ -53,6 +53,8 @@ inoremap kj <esc>
 inoremap jj <esc>
 inoremap df <esc>
 
+"This unsets the 'last search pattern' register by hitting return
+nnoremap <CR> :noh<CR><CR>
 
 augroup _
   autocmd!
