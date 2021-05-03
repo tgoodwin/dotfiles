@@ -37,6 +37,7 @@ function overwrite_remote_branch {
 }
 
 alias gfp='$(overwrite_remote_branch $(git current))'
+alias gpo='git push -u origin $(git current)'
 
 # some grep aliases
 alias grep='grep --color=auto'

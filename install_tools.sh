@@ -12,6 +12,9 @@ install_mac() {
     # Install some fun ones
     brew install fzf bat fd ripgrep
 
+    # Install CLIs
+    brew install gh
+
     # Install GNU core utilities (better than MacOSX ones)
     brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent
 

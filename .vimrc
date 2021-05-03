@@ -53,6 +53,8 @@ inoremap kj <esc>
 inoremap jj <esc>
 inoremap df <esc>
 
+"This unsets the 'last search pattern' register by hitting return
+nnoremap <CR> :noh<CR><CR>
 
 augroup _
   autocmd!
@@ -142,6 +144,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-commentary'
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'fatih/vim-go'
 Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
@@ -157,5 +160,8 @@ set laststatus=2
 
 " Color Scheme
 syntax on
+let g:onedark_termcolors=256
 colorscheme onedark
-
+let g:lightline = {
+  \ 'colorscheme': 'onedark',
+  \ }
