@@ -82,3 +82,4 @@ set -o vi
 set show-mode-in-prompt on
 set vi-ins-mode-string \1\e[6 q\2
 set vi-cmd-mode-string \1\e[2 q\2
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

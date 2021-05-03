@@ -7,7 +7,7 @@ install_mac() {
     which brew >/dev/null || /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
     brew update
-    brew install neovim git tmux bash-completion sl curl jq
+    brew install neovim git tmux bash-completion sl curl jq wget
 
     # Install some fun ones
     brew install fzf bat fd ripgrep
