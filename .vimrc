@@ -151,7 +151,7 @@ Plug 'mxw/vim-jsx'
 Plug 'prettier/vim-prettier'
 Plug 'joshdick/onedark.vim'
 Plug 'sheerun/vim-polyglot'
-
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
 call plug#end()
 
