@@ -16,7 +16,7 @@ install_mac() {
     brew install gh
 
     # Install GNU core utilities (better than MacOSX ones)
-    brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent
+    brew install coreutils findutils gnu-tar gnu-sed gawk gnutls gnu-indent diffutils
 
     # GNU utilities are prefixed with a `g`. Add "gnubin" directory to path
     # to access these commands with their normal names.
